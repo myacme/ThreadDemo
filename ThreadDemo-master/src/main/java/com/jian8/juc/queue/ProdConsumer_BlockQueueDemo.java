@@ -5,6 +5,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * @author MyAcme
+ */
 public class ProdConsumer_BlockQueueDemo {
     public static void main(String[] args) {
         MyResource myResource = new MyResource(new ArrayBlockingQueue<>(10));
@@ -36,7 +39,8 @@ public class ProdConsumer_BlockQueueDemo {
 }
 
 class MyResource {
-    private volatile boolean flag = true;//默认开启，进行生产+消费
+	//默认开启，进行生产+消费
+    private volatile boolean flag = true;
     private AtomicInteger atomicInteger = new AtomicInteger();
 
     BlockingQueue<String> blockingQueue = null;
