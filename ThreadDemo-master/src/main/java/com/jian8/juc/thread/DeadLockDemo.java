@@ -15,6 +15,10 @@ public class DeadLockDemo {
         /**
          * linux ps -ef|grep xxxx
          * windows下的java运行程序也有类似ps的查看进程的命令，但是目前我们需要查看的
+         *      jps -l
+         *
+         *  jstack xxx  查看进程报错信息
+         *
          */
     }
 }
