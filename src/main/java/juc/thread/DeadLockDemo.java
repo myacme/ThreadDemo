@@ -9,9 +9,8 @@ public class DeadLockDemo {
     public static void main(String[] args) {
         String lockA = "lockA";
         String lockB = "lockB";
-        new Thread(new HoldThread(lockA,lockB),"Thread-AAA").start();
-        new Thread(new HoldThread(lockB,lockA),"Thread-BBB").start();
-
+        new Thread(new HoldThread(lockA, lockB), "Thread-AAA").start();
+        new Thread(new HoldThread(lockB, lockA), "Thread-BBB").start();
         /**
          * linux ps -ef|grep xxxx
          * windows下的java运行程序也有类似ps的查看进程的命令，但是目前我们需要查看的
@@ -20,6 +19,27 @@ public class DeadLockDemo {
          *  jstack xxx  查看进程报错信息
          *
          */
+    }
+
+    private static void deadLock() {
+        String lockA = "lockA";
+        String lockB = "lockB";
+        new Thread(() -> {
+            synchronized (lockA) {
+                System.out.println(Thread.currentThread().getName() + "\t自己持有：" + lockA + "\t尝试获得：" + lockB);
+                synchronized (lockB) {
+                    System.out.println(Thread.currentThread().getName() + "\t自己持有：" + lockB);
+                }
+            }
+        }, "A").start();
+        new Thread(() -> {
+            synchronized (lockB) {
+                System.out.println(Thread.currentThread().getName() + "\t自己持有：" + lockB + "\t尝试获得：" + lockA);
+                synchronized (lockA) {
+                    System.out.println(Thread.currentThread().getName() + "\t自己持有：" + lockA);
+                }
+            }
+        }, "A").start();
     }
 }
 
