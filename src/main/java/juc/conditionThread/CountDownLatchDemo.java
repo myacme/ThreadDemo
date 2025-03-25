@@ -6,8 +6,6 @@ import java.util.concurrent.TimeUnit;
 
 public class CountDownLatchDemo {
     public static void main(String[] args) throws InterruptedException {
-//        general();
-//        countDownLatchTest();
         simultaneousExecution();
     }
 
@@ -16,10 +14,10 @@ public class CountDownLatchDemo {
      * 同时执行
      */
     public static void simultaneousExecution() throws InterruptedException {
-        CountDownLatch countDownLatch1 = new CountDownLatch(1);
+        CountDownLatch countDownLatch = new CountDownLatch(1);
         new Thread(() -> {
             try {
-                countDownLatch1.wait();
+                countDownLatch.wait();
                 System.out.println(System.currentTimeMillis());
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -27,14 +25,14 @@ public class CountDownLatchDemo {
         }, "A").start();
         new Thread(() -> {
             try {
-                countDownLatch1.wait();
+                countDownLatch.wait();
                 System.out.println(Instant.now().toEpochMilli());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }, "B").start();
         Thread.sleep(1000);
-        countDownLatch1.countDown();
+        countDownLatch.countDown();
     }
 
     public static void general() {
@@ -59,7 +57,7 @@ public class CountDownLatchDemo {
             new Thread(() -> {
                 System.out.println(Thread.currentThread().getName() + "\t被灭");
                 countDownLatch.countDown();
-            }, CountryEnum.forEach_CountryEnum(i).getRetMessage()).start();
+            }, CountryEnum.forEachCountryEnum(i).getRetMessage()).start();
         }
         countDownLatch.await();
         System.out.println(Thread.currentThread().getName() + "\t=====秦统一");
