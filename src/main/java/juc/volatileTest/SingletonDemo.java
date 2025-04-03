@@ -1,11 +1,7 @@
 package juc.volatileTest;
 
 public class SingletonDemo {
-    private static volatile SingletonDemo instance = null;
-
-    private SingletonDemo() {
-        System.out.println(Thread.currentThread().getName() + "\t 构造方法SingletonDemo（）");
-    }
+    private static  SingletonDemo instance = null;
 
     public static SingletonDemo getInstance() {
 
@@ -17,6 +13,10 @@ public class SingletonDemo {
             }
         }
         return instance;
+    }
+
+    private SingletonDemo() {
+        System.out.println(Thread.currentThread().getName() + "\t 构造方法SingletonDemo（）");
     }
 
     public static void main(String[] args) {
