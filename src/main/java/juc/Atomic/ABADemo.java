@@ -1,4 +1,4 @@
-package juc.cas;
+package juc.Atomic;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;

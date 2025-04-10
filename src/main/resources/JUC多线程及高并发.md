@@ -386,7 +386,7 @@ AtomicInteger.conpareAndSet(int expect, indt update)
 例子：
 
 ```java
-package juc.cas;
+package juc.Atomic;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -396,10 +396,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class CASDemo {
     public static void main(String[] args) {
-       checkCAS();
+        checkCAS();
     }
 
-    public static void checkCAS(){
+    public static void checkCAS() {
         AtomicInteger atomicInteger = new AtomicInteger(5);
         System.out.println(atomicInteger.compareAndSet(5, 2019) + "\t current data is " + atomicInteger.get());
         System.out.println(atomicInteger.compareAndSet(5, 2014) + "\t current data is " + atomicInteger.get());
@@ -497,7 +497,7 @@ CAS算法实现一个重要前提需要去除内存中某个时刻的数据并�
 示例代码：
 
 ```java
-package juc.cas;
+package juc.Atomic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -537,7 +537,7 @@ false	User(userName=李四, age=23)
 新增机制，修改版本号
 
 ```java
-package juc.cas;
+package juc.Atomic;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -557,7 +557,6 @@ public class ABADemo {
             atomicReference.compareAndSet(100, 101);
             atomicReference.compareAndSet(101, 100);
         }, "Thread 1").start();
-
         new Thread(() -> {
             try {
                 //保证线程1完成一次ABA操作
@@ -573,7 +572,6 @@ public class ABADemo {
             e.printStackTrace();
         }
         System.out.println("=====以下时ABA问题的解决=====");
-
         new Thread(() -> {
             int stamp = atomicStampedReference.getStamp();
             System.out.println(Thread.currentThread().getName() + "\t第1次版本号" + stamp);
@@ -587,7 +585,6 @@ public class ABADemo {
             atomicStampedReference.compareAndSet(101, 100, atomicStampedReference.getStamp(), atomicStampedReference.getStamp() + 1);
             System.out.println(Thread.currentThread().getName() + "\t第3次版本号" + atomicStampedReference.getStamp());
         }, "Thread 3").start();
-
         new Thread(() -> {
             int stamp = atomicStampedReference.getStamp();
             System.out.println(Thread.currentThread().getName() + "\t第1次版本号" + stamp);
@@ -597,7 +594,6 @@ public class ABADemo {
                 e.printStackTrace();
             }
             boolean result = atomicStampedReference.compareAndSet(100, 2019, stamp, stamp + 1);
-
             System.out.println(Thread.currentThread().getName() + "\t修改是否成功" + result + "\t当前最新实际版本号：" + atomicStampedReference.getStamp());
             System.out.println(Thread.currentThread().getName() + "\t当前最新实际值：" + atomicStampedReference.getReference());
         }, "Thread 4").start();
