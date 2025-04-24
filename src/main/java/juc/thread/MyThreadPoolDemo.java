@@ -34,6 +34,9 @@ import java.util.concurrent.*;
  *
  */
 public class MyThreadPoolDemo {
+
+    public static final int CPU = Runtime.getRuntime().availableProcessors();
+
 	public static void main(String[] args) {
 		ExecutorService t = Executors.newFixedThreadPool(2);
 		ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -42,7 +45,7 @@ public class MyThreadPoolDemo {
 				TimeUnit.SECONDS,
 				new LinkedBlockingDeque<>(3),
 				Executors.defaultThreadFactory(),
-				new ThreadPoolExecutor.CallerRunsPolicy());
+				new ThreadPoolExecutor.DiscardPolicy());
 
 		try {
 			for (int i = 1; i <= 10; i++) {
