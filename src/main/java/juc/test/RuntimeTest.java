@@ -1,6 +1,6 @@
 package juc.test;
 
-public class Test {
+public class RuntimeTest {
     public static void main(String[] args) {
         Runtime runtime = Runtime.getRuntime();
         System.out.println(runtime.availableProcessors());//线程数

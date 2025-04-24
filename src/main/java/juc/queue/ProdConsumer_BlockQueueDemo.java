@@ -41,9 +41,9 @@ public class ProdConsumer_BlockQueueDemo {
 class MyResource {
 	//默认开启，进行生产+消费
     private volatile boolean flag = true;
-    private AtomicInteger atomicInteger = new AtomicInteger();
+    private final AtomicInteger atomicInteger = new AtomicInteger();
 
-    BlockingQueue<String> blockingQueue = null;
+    BlockingQueue<String> blockingQueue;
 
     public MyResource(BlockingQueue<String> blockingQueue) {
         this.blockingQueue = blockingQueue;
@@ -51,7 +51,7 @@ class MyResource {
     }
 
     public void myProd() throws Exception {
-        String data = null;
+        String data;
         boolean retValue;
         while (flag) {
             data = atomicInteger.incrementAndGet() + "";
