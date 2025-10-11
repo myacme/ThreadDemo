@@ -22,7 +22,8 @@ public class StaticThreadPool {
                     Runtime.getRuntime().availableProcessors() * 2,
                     60L, TimeUnit.SECONDS,
                     new LinkedBlockingQueue<>(1000),
-                    new NamedThreadFactory("process-thread-pool-"),
+//                    new NamedThreadFactory("process-thread-pool-"),
+                    Executors.defaultThreadFactory(),
                     new ThreadPoolExecutor.CallerRunsPolicy()
             );
 
